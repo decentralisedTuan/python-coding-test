@@ -4,7 +4,11 @@ install:
 dev:
 	  poetry run fastapi dev src/main.py
 
-test:
+lint:
+		poetry run flake8 .
+
+test: lint
 	  poetry run python src/tests.py
 
-.PHONY: install dev
+
+.PHONY: install dev lint test

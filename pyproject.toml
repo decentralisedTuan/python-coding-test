@@ -8,6 +8,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.111.0"
+pandas = "^2.2.2"
+flake8 = "^7.0.0"
 
 
 [build-system]
