@@ -2,10 +2,10 @@
 
 ## Feature
 
-A user can provide a PDF and a company name data is extracted from the PDF via
-the external service and compared to the data stored on file a summary of the
-data is returned, containing all fields from both sources, noting which fields
-did not match.
+- API Endpoint `/compare`: A user can provide a PDF and a company name data is extracted from the PDF via
+  the external service and compared to the data stored on file a summary of the
+  data is returned, containing all fields from both sources, noting which fields
+  did not match.
 
 ## Setup using Poetry
 
