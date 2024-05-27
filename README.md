@@ -27,6 +27,13 @@ was generated using version `1.8.3`
    <img src="/screenshots/4.png" />
    <img src="/screenshots/5.png" />
 
+## Test with HTML Form
+
+1. Run `make dev`
+2. Open `http://127.0.0.1:8000`
+3. Fill the form on the home page
+   <img src="/screenshots/6.png" />
+
 ## Tests
 
 Run `make test`
