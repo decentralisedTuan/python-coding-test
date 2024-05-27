@@ -7,7 +7,20 @@
     <link rel="stylesheet" href="/static/css/styles.css" />
   </head>
   <body>
-    <h1>Compare PDF API Test</h1>
+    <h1>Data Discrepancies Test</h1>
+    <p>
+      Please use the form below to compare the data from an uploaded PDF file
+      with existing data in our database. Follow these steps:
+    </p>
+    <ol>
+      <li>Enter the company name you want to compare data for.</li>
+      <li>Upload a PDF file containing the relevant company data.</li>
+      <li>Click the "Submit" button to send the request to the API.</li>
+    </ol>
+    <p>
+      After submission, the results will be displayed below, showing existing
+      data, extracted data, and any discrepancies.
+    </p>
     <form id="compare-form">
       <label for="company-name">Company Name:</label>
       <input type="text" id="company-name" name="company_name" required />
@@ -84,14 +97,9 @@
           data.discrepancies
         );
 
-        const tableContainer = document.createElement("div");
-        tableContainer.classList.add("table-container");
-
-        tableContainer.appendChild(existingDataTable);
-        tableContainer.appendChild(extractedDataTable);
-        tableContainer.appendChild(discrepanciesTable);
-
-        resultDiv.appendChild(tableContainer);
+        resultDiv.appendChild(existingDataTable);
+        resultDiv.appendChild(extractedDataTable);
+        resultDiv.appendChild(discrepanciesTable);
       }
 
       function createTable(title, data) {
