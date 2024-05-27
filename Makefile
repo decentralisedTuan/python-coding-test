@@ -8,7 +8,7 @@ lint:
 		poetry run flake8 .
 
 test: lint
-	  poetry run python src/tests.py
+	  poetry run python src/tests/tests.py
 
 
 .PHONY: install dev lint test

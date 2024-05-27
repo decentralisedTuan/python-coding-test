@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compare PDF API Test</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    <h1>Compare PDF API Test</h1>
+    <form id="compare-form">
+      <label for="company-name">Company Name:</label>
+      <input type="text" id="company-name" name="company_name" required />
+
+      <label for="file">Upload PDF:</label>
+      <input
+        type="file"
+        id="file"
+        name="file"
+        accept="application/pdf"
+        required
+      />
+
+      <button type="submit">Submit</button>
+    </form>
+    <div class="result" id="result"></div>
+    <div class="error" id="error"></div>
+
+    <script>
+      document
+        .getElementById("compare-form")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const companyName = document.getElementById("company-name").value;
+          const fileInput = document.getElementById("file");
+          const file = fileInput.files[0];
+
+          if (!file) {
+            document.getElementById("error").textContent =
+              "Please upload a PDF file.";
+            return;
+          }
+
+          const formData = new FormData();
+          formData.append("company_name", companyName);
+          formData.append("file", file);
+
+          try {
+            const response = await fetch("/compare", {
+              method: "POST",
+              body: formData,
+            });
+
+            if (!response.ok) {
+              throw new Error(
+                `Error: ${response.status} ${response.statusText}`
+              );
+            }
+
+            const result = await response.json();
+            displayResult(result);
+            document.getElementById("error").textContent = "";
+          } catch (error) {
+            document.getElementById("result").innerHTML = "";
+            document.getElementById("error").textContent = error.message;
+          }
+        });
+
+      function displayResult(data) {
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = "";
+
+        const existingDataTable = createTable(
+          "Existing Data",
+          data.existing_data
+        );
+        const extractedDataTable = createTable(
+          "Extracted Data",
+          data.extracted_data
+        );
+        const discrepanciesTable = createDiscrepanciesTable(
+          "Discrepancies",
+          data.discrepancies
+        );
+
+        const tableContainer = document.createElement("div");
+        tableContainer.classList.add("table-container");
+
+        tableContainer.appendChild(existingDataTable);
+        tableContainer.appendChild(extractedDataTable);
+        tableContainer.appendChild(discrepanciesTable);
+
+        resultDiv.appendChild(tableContainer);
+      }
+
+      function createTable(title, data) {
+        const table = document.createElement("table");
+        const caption = document.createElement("caption");
+        caption.textContent = title;
+        table.appendChild(caption);
+
+        const thead = document.createElement("thead");
+        const tr = document.createElement("tr");
+        const thKey = document.createElement("th");
+        thKey.textContent = "Key";
+        const thValue = document.createElement("th");
+        thValue.textContent = "Value";
+        tr.appendChild(thKey);
+        tr.appendChild(thValue);
+        thead.appendChild(tr);
+        table.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+        for (const [key, value] of Object.entries(data)) {
+          const tr = document.createElement("tr");
+          const tdKey = document.createElement("td");
+          tdKey.textContent = key;
+          const tdValue = document.createElement("td");
+          tdValue.textContent = value !== null ? value : "N/A";
+          tr.appendChild(tdKey);
+          tr.appendChild(tdValue);
+          tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+
+        return table;
+      }
+
+      function createDiscrepanciesTable(title, data) {
+        const table = document.createElement("table");
+        const caption = document.createElement("caption");
+        caption.textContent = title;
+        table.appendChild(caption);
+
+        const thead = document.createElement("thead");
+        const tr = document.createElement("tr");
+        const thKey = document.createElement("th");
+        thKey.textContent = "Key";
+        const thExisting = document.createElement("th");
+        thExisting.textContent = "Existing Value";
+        const thExtracted = document.createElement("th");
+        thExtracted.textContent = "Extracted Value";
+        tr.appendChild(thKey);
+        tr.appendChild(thExisting);
+        tr.appendChild(thExtracted);
+        thead.appendChild(tr);
+        table.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+        for (const [key, discrepancy] of Object.entries(data)) {
+          const tr = document.createElement("tr");
+          const tdKey = document.createElement("td");
+          tdKey.textContent = key;
+          const tdExisting = document.createElement("td");
+          tdExisting.textContent =
+            discrepancy.existing !== null ? discrepancy.existing : "N/A";
+          const tdExtracted = document.createElement("td");
+          tdExtracted.textContent =
+            discrepancy.extracted !== null ? discrepancy.extracted : "N/A";
+          tr.appendChild(tdKey);
+          tr.appendChild(tdExisting);
+          tr.appendChild(tdExtracted);
+          tbody.appendChild(tr);
+        }
+        table.appendChild(tbody);
+
+        return table;
+      }
+    </script>
+  </body>
+</html>
