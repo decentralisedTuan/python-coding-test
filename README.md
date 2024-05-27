@@ -15,9 +15,14 @@ was generated using version `1.8.3`
 1. Ensure `poetry` is installed
 2. Run `make install`
 
-## Run using poetry
+## Test with swagger UI
 
-Run `make dev`
+1. Run `make dev`
+2. Open `http://127.0.0.1:8000/docs`
+3. Open `/compare` api endpoint and click on `Try it out` button
+   <img src="/screenshots/1.png" />
+4. Test with `company_name` and `pdf_file`
+   <img src="/screenshots/2.png" />
 
 ## Tests
 
