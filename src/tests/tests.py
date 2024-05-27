@@ -1,8 +1,8 @@
 # Write your tests here
 import unittest
 from fastapi.testclient import TestClient
-from main import app
-from utils import compare_data
+from app.main import app
+from utils.utils import compare_data
 
 client = TestClient(app)
 
