@@ -2,9 +2,10 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from fastapi.responses import JSONResponse
 from typing import Annotated
 import pandas as pd
-from .services import pdf_service, data_file
-from .utils import compare_data
-from .models import Response
+
+from ..services.services import pdf_service, data_file
+from ..utils.compare_data import compare_data
+from ..models.response import Response
 
 router = APIRouter()
 
