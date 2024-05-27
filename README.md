@@ -22,8 +22,10 @@ was generated using version `1.8.3`
 3. Open `/compare` api endpoint and click on `Try it out` button
    <img src="/screenshots/1.png" />
    <img src="/screenshots/2.png" />
-4. Test with `company_name` and `file`
+4. Test with differents `company_name` and `file` values
    <img src="/screenshots/3.png" />
+   <img src="/screenshots/4.png" />
+   <img src="/screenshots/5.png" />
 
 ## Tests
 
