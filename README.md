@@ -21,8 +21,9 @@ was generated using version `1.8.3`
 2. Open `http://127.0.0.1:8000/docs`
 3. Open `/compare` api endpoint and click on `Try it out` button
    <img src="/screenshots/1.png" />
-4. Test with `company_name` and `file`
    <img src="/screenshots/2.png" />
+4. Test with `company_name` and `file`
+   <img src="/screenshots/3.png" />
 
 ## Tests
 
